@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import requests
 
 app=Flask(__name__)
 
@@ -14,6 +15,12 @@ def hello_you(name):
 @app.route('/index.html')
 def index():
     return render_template('index.html')
+
+class SiteUtils():
+    def request_active_covid_cases(self):
+        zakazenia = requests.get("https://api.covid19api.com/country/poland")
+        return zakazenia
+
 
 
 # Sprawdzam, czy program jest uruchomiony z tego pliku

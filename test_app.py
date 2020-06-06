@@ -2,6 +2,7 @@ import unittest
 import pytest
 
 from app import app
+from app import SiteUtils
 
 class AppTestCase(unittest.TestCase):
     # Test funkcji home
@@ -30,6 +31,12 @@ class AppTestCase(unittest.TestCase):
         response=tester.get(f"/powitanie/{name}")
         assert response.status_code == 200
         assert response.get_data().decode()== f"Witam serdecznie, {name}"
-        
+
+    def test_get_active_cases(self):
+        utils=SiteUtils()
+        cases=utils.request_active_covid_cases()
+        assert cases.status_code == 200
+        self.assertIsInstance(cases.content,bytes)
+
 if __name__=="__main__":
     unittest.main(verbosity=2)
