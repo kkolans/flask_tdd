@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app=Flask(__name__)
 
@@ -10,6 +10,10 @@ def home():
 @app.route('/powitanie/<string:name>')
 def hello_you(name):
     return "Witam serdecznie, " + name
+
+@app.route('/index.html')
+def index():
+    return render_template('index.html')
 
 
 # Sprawdzam, czy program jest uruchomiony z tego pliku
