@@ -23,7 +23,10 @@ class SiteUtils():
         # Pobieram przygotowane dane (to będzie DataFrame)
         df = self.prepare_data()
         # Stwórz wykres aktywnych przypadków
-        plot = df['Active'].plot()
+        plot = df['Active'].plot(colormap='jet', marker='.', title="Aktywne przypadki koronawirusa w Polsce")
+        # Ustawimy sobie nazwy osi
+        plot.set_xlabel("Dni")
+        plot.set_ylabel("Liczba przypadków")
         # Tworzę obrazek z tego wykresu
         fig = plot.get_figure()
         return fig
