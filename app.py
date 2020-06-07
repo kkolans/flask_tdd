@@ -1,6 +1,11 @@
 from flask import Flask, render_template
 import pandas as pd
 import requests
+import io
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+import matplotlib.pyplot as plt
+import matplotlib.figure as Figure
+from flask import Response
 
 class SiteUtils():
     def request_active_covid_cases(self):
@@ -44,6 +49,7 @@ def plot_png():
     # Tworzę obrazek z wykresu
     fig = utils.create_figure()
     # Skomplikowany proces pzerobienia na plik .png
+
 
 # Sprawdzam, czy program jest uruchomiony z tego pliku
 # (Wówczas Python ustawi magiczny parametr __name__ jako "__main__")
