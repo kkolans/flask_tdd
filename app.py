@@ -31,7 +31,6 @@ class SiteUtils():
 app=Flask(__name__)
 utils=SiteUtils()
 
-@app.route('/')
 @app.route('/powitanie')
 def home():
     return "Witam na moim API!"
@@ -40,9 +39,14 @@ def home():
 def hello_you(name):
     return "Witam serdecznie, " + name
 
+@app.route('/')
 @app.route('/index.html')
 def index():
     return render_template('index.html')
+
+@app.route('/aktywne.html')
+def active():
+    return render_template('aktywne.html')
 
 @app.route('/plot.png')
 def plot_png():
