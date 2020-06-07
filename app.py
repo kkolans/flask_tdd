@@ -2,22 +2,6 @@ from flask import Flask, render_template
 import pandas as pd
 import requests
 
-app=Flask(__name__)
-
-@app.route('/')
-@app.route('/powitanie')
-def home():
-    return "Witam na moim API!"
-
-@app.route('/powitanie/<string:name>')
-def hello_you(name):
-    return "Witam serdecznie, " + name
-
-@app.route('/index.html')
-def index():
-    return render_template('index.html')
-
-
 class SiteUtils():
     def request_active_covid_cases(self):
         zakazenia = requests.get("https://api.covid19api.com/country/poland")
@@ -33,9 +17,33 @@ class SiteUtils():
     def create_figure(self):
         # Pobieram przygotowane dane (to będzie DataFrame)
         df = self.prepare_data()
-        # Stwórz wykres aktywnych przyopadków
+        # Stwórz wykres aktywnych przypadków
         plot = df['Active'].plot()
         # Tworzę obrazek z tego wykresu
+        fig = plot.get_figure()
+        return fig
+
+app=Flask(__name__)
+utils=SiteUtils()
+
+@app.route('/')
+@app.route('/powitanie')
+def home():
+    return "Witam na moim API!"
+
+@app.route('/powitanie/<string:name>')
+def hello_you(name):
+    return "Witam serdecznie, " + name
+
+@app.route('/index.html')
+def index():
+    return render_template('index.html')
+
+@app.route('/plot.png')
+def plot_png():
+    # Tworzę obrazek z wykresu
+    fig = utils.create_figure()
+    # Skomplikowany proces pzerobienia na plik .png
 
 # Sprawdzam, czy program jest uruchomiony z tego pliku
 # (Wówczas Python ustawi magiczny parametr __name__ jako "__main__")
