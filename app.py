@@ -30,6 +30,12 @@ class SiteUtils():
         df = pd.read_json(zakazenia.content)
         return df
 
+    def create_figure(self):
+        # Pobieram przygotowane dane (to będzie DataFrame)
+        df = self.prepare_data()
+        # Stwórz wykres aktywnych przyopadków
+        plot = df['Active'].plot()
+        # Tworzę obrazek z tego wykresu
 
 # Sprawdzam, czy program jest uruchomiony z tego pliku
 # (Wówczas Python ustawi magiczny parametr __name__ jako "__main__")
