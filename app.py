@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import pandas as pd
 import requests
 
 app=Flask(__name__)
@@ -16,11 +17,18 @@ def hello_you(name):
 def index():
     return render_template('index.html')
 
+
 class SiteUtils():
     def request_active_covid_cases(self):
         zakazenia = requests.get("https://api.covid19api.com/country/poland")
         return zakazenia
 
+    def prepare_data(self):
+        # Pobieram zakażenia
+        zakazenia=self.request_active_covid_cases()
+        # Przerabiam pobrane dane (w formie JSONa) na DataFrame
+        df = pd.read_json(zakazenia.content)
+        return df
 
 
 # Sprawdzam, czy program jest uruchomiony z tego pliku
