@@ -49,6 +49,9 @@ def plot_png():
     # Tworzę obrazek z wykresu
     fig = utils.create_figure()
     # Skomplikowany proces pzerobienia na plik .png
+    output=io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
 
 
 # Sprawdzam, czy program jest uruchomiony z tego pliku
